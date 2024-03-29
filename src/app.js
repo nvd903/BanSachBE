@@ -7,8 +7,8 @@ require("dotenv").config();
 
 // const route = require("./routes");
 
-// const db = require("./config/db");
-// db.connect();
+const db = require("./config/db");
+db.connect();
 
 const morgan = require("morgan");
 
