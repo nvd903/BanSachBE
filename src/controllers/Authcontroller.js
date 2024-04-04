@@ -59,12 +59,12 @@ class Auth {
         console.log('d');
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
-        // res.cookie("refreshToken", refreshToken, {
-        //   httpOnly: true,
-        //   secure: false,
-        //   path: "/",
-        //   sameSite: "strict",
-        // });
+        res.cookie("refreshToken", refreshToken, {
+          httpOnly: true,
+          secure: false,
+          path: "/",
+          sameSite: "strict",
+        });
         console.log('e');
         const { password, ...others } = user._doc;
         return res.status(200).json({ ...others, accessToken });

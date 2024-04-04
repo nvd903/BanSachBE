@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const authController = require("../controllers/AuthController");
+const authController = require("../controllers/Authcontroller");
 const middlewareController = require("../controllers/MiddlewareController");
 
 router.post("/singup", authController.register);
