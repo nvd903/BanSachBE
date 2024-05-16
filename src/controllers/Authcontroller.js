@@ -1,4 +1,5 @@
 const User = require("../model/userSchema");
+const Cart = require("../model/cartSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -32,6 +33,9 @@ class Auth {
       });
       //save on db
       const user = await newUser.save();
+      //create cart for user 
+      const newCart = new Cart(req.body);
+      const saveCart = await newCart.save();
       return res.status(200).json(user);
     } catch (err) {
       res.status(500).json(err);
