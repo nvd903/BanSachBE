@@ -41,10 +41,8 @@ class Auth {
   //[POST] /auth/login
   async login(req, res) {
     try {
-      console.log('a');
       const user = await User.findOne({ username: req.body.username });
       if (!user) {
-        console.log('b');
         return res.status(404).json("Wrong username!");
       }
       const validPassword = await bcrypt.compare(
@@ -52,11 +50,9 @@ class Auth {
         user.password
       );
       if (!validPassword) {
-        console.log('c');
         return res.status(404).json("Wrong password!");
       }
       if (user && validPassword) {
-        console.log('d');
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
         res.cookie("refreshToken", refreshToken, {
@@ -65,13 +61,13 @@ class Auth {
           path: "/",
           sameSite: "strict",
         });
-        console.log('e');
         const { password, ...others } = user._doc;
         return res.status(200).json({ ...others, accessToken });
       }
     } catch (err) {
       res.status(500).json(err);
     }
+   
   }
 
   async requestRefreshToken(req, res) {
@@ -89,7 +85,7 @@ class Auth {
         path: "/",
         sameSite: "strict",
       });
-      // return res.status(200).json(newAccessToken);
+  
     });
   }
 
