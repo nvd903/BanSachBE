@@ -250,6 +250,24 @@ class BookController {
       return res.status(500).json(error);
     }
   }
+  
+  async getListBookByAuthor (req, res) { 
+    try {
+      const {authorId} = req.body
+      //check authorid
+      const foundAuthor = await Author.findById(authorId) ;
+      if(!foundAuthor) { 
+        return res.status(404).json("Khong ton tai tac gia");
+      }
+      const listBook = await Book.find({author: authorId})
+      if(!listBook) { 
+        return res.status(404).json("not found book");
+      }
+      return res.status(200).json(listBook)
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
 }
 
 module.exports = new BookController();
