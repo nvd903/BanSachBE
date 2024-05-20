@@ -78,6 +78,21 @@ class DeliveryAddressController {
       res.status(500).json(error);
     }
   }
+
+  //xoa dia chi
+  deleteAddress = async (req, res) => { 
+    try {
+      const {addresId} = req.body;
+      const address = await DeliveryAddress.findById(addresId);
+      if (!address) {
+        return res.status(404).json("Khong ton tai dia chi");
+      }
+      const deleted = await DeliveryAddress.findByIdAndDelete(addresId);
+      return res.status(200).json(`xoa thanh cong dia chi co id: ${addresId}`)
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
 }
 
 module.exports = new DeliveryAddressController();
